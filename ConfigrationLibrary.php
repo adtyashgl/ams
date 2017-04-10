@@ -19,7 +19,7 @@ class ConfigrationLibrary{
                                             'prefix' => ''
                                 );
         //checking that it is runnig locally or not.
-        $ConfigVars['RootUrl'] = ($_SERVER["REMOTE_ADDR"]=="127.0.0.1") ? 'http://localhost/simplypark/' : 'http://127.0.0.1/simplypark/';
+        $ConfigVars['RootUrl'] = ($_SERVER["REMOTE_ADDR"]=="127.0.0.1") ? 'http://localhost/ams/' : 'http://127.0.0.1/ams/';
 
     }
 
