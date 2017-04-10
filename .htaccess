@@ -1,0 +1,13 @@
+<IfModule mod_rewrite.c>
+   RewriteEngine on
+   RewriteRule ^(faq|blog|products)($|/) - [L]
+   RewriteCond %{REQUEST_URI} !^/blog.*
+   RewriteCond %{REQUEST_URI} !^/products.*
+   RewriteCond %{REQUEST_URI} !-f
+   RewriteRule ^$ app/webroot/ [L]
+
+   RewriteCond %{REQUEST_URI} !^/blog.*
+   RewriteCond %{REQUEST_URI} !-d
+   RewriteRule (.*) app/webroot/$1 [L]
+</IfModule>
+
