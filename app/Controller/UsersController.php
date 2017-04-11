@@ -7,7 +7,7 @@ class UsersController extends AppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('add','logout','appLogin');
+		$this->Auth->allow('add','logout','appLogin','test');
 	}
 
 	public function index() {
@@ -123,6 +123,20 @@ class UsersController extends AppController {
 		}
 
 		$this->autoRender = false;	
+
+	}
+
+	public function test(){
+
+          $this->loadModel('User');
+	  $this->User->getRole(1);
+
+	  $this->loadModel('Franchise');
+	  $this->Franchise->getAllFranchises();
+	  $this->Franchise->getFranchiseManagedBy(1);
+
+	  $this->loadModel('Employee');
+	  $this->Employee->getEmployees(1);
 
 	}
 
