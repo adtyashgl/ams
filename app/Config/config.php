@@ -9,4 +9,6 @@
 	$config['RetValue'] = array('Success' => 0,
 		                     'Failure' =>1);
 
+        $config['Role'] = array('Owner' => 1,
+		                'Manager' => 2);
 ?>
