@@ -32,24 +32,16 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
 	public $components = array(
-        'Session',
-        'Auth' => array(
-            'loginRedirect' => array(
-                'controller' => 'posts',
-                'action' => 'index'
-            ),
-            'logoutRedirect' => array(
-                'controller' => 'pages',
-                'action' => 'display',
-                'home'
-            ),
-            'authenticate' => array(
-                'Form' => array(
-                    'passwordHasher' => 'Blowfish'
-                )
-            )
-        )
-    );
+		'Session',
+		'Auth' => array(
+			'authenticate' => array(
+				'Form' => array(
+					'fields' => array('username' => 'username', 'password' => 'password')
+				)
+			),
+			'authorize' => 'Controller'
+		)
+	);
 
     public function beforeFilter() {
         $this->Auth->allow('index', 'view');

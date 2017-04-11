@@ -6,4 +6,7 @@
 	$config['AppDefaultDatabaseDefault'] = ConfigrationLibrary::DATABASEDEFAULT;
 	$config['ROOTURL'] = ConfigrationLibrary::getConfigVars('RootUrl');
 
+	$config['RetValue'] = array('Success' => 0,
+		                     'Failure' =>1);
+
 ?>
