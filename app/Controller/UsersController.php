@@ -25,15 +25,17 @@ class UsersController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->User->create();
+			CakeLog::write('debug','Inside add ... ' . print_r($this->request->data,true));
 			if ($this->User->save($this->request->data)) {
-				$this->Flash->success(__('The user has been saved'));
+				$this->Session->setFlash(__('The user has been saved'));
 				return $this->redirect(array('action' => 'index'));
 			}
-			$this->Flash->error(
+			$this->Session->setFlash(
 				__('The user could not be saved. Please, try again.')
 			);
 		}
 	}
+
 
 	public function edit($id = null) {
 		$this->User->id = $id;
@@ -42,10 +44,10 @@ class UsersController extends AppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->User->save($this->request->data)) {
-				$this->Flash->success(__('The user has been saved'));
+				$this->Session->setFlash(__('The user has been saved'));
 				return $this->redirect(array('action' => 'index'));
 			}
-			$this->Flash->error(
+			$this->Session->setFlash(
 				__('The user could not be saved. Please, try again.')
 			);
 		} else {
@@ -65,10 +67,10 @@ class UsersController extends AppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->User->delete()) {
-			$this->Flash->success(__('User deleted'));
+			$this->Session->setFlash(__('User deleted'));
 			return $this->redirect(array('action' => 'index'));
 		}
-		$this->Flash->error(__('User was not deleted'));
+		$this->Session->setFlash(__('User was not deleted'));
 		return $this->redirect(array('action' => 'index'));
 	}
 
@@ -77,7 +79,7 @@ class UsersController extends AppController {
 			if ($this->Auth->login()) {
 				return $this->redirect($this->Auth->redirectUrl());
 			}
-			$this->Flash->error(__('Invalid username or password, try again'));
+			$this->Session->setFlash(__('Invalid username or password, try again'));
 		}
 	}
 

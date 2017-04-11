@@ -18,13 +18,13 @@ App::uses('BaseAuthenticate', 'Controller/Component/Auth');
  * An authentication adapter for AuthComponent. Provides the ability to authenticate using POST
  * data. Can be used by configuring AuthComponent to use it via the AuthComponent::$authenticate setting.
  *
- * {{{
+ * ```
  *	$this->Auth->authenticate = array(
  *		'Form' => array(
  *			'scope' => array('User.active' => 1)
  *		)
  *	)
- * }}}
+ * ```
  *
  * When configuring FormAuthenticate you can pass in settings to which fields, model and additional conditions
  * are used. See FormAuthenticate::$settings for more information.
@@ -69,13 +69,7 @@ class FormAuthenticate extends BaseAuthenticate {
 		$userModel = $this->settings['userModel'];
 		list(, $model) = pluginSplit($userModel);
 
-		App::Import('Utility', 'Validation');
-		if( isset($request->data['User']['username']) && Validation::email($request->data['User']['username'])) {
-	    	$request->data['User']['email'] = $request->data['User']['username'];
-	    	$this->settings['fields']['username'] = 'email';
-	    }
 		$fields = $this->settings['fields'];
-	    
 		if (!$this->_checkFields($request, $model, $fields)) {
 			return false;
 		}
