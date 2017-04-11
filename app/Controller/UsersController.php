@@ -8,7 +8,6 @@ class UsersController extends AppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow('add','logout','appLogin');
-                $this->RequestHandler->ext = 'json';
 	}
 
 	public function index() {
@@ -96,38 +95,35 @@ class UsersController extends AppController {
 	 * ********************************************************************/
 	
 	public function appLogin() {
-		$response = array();
-		$response['status'] = Configure::read('RetValue.Success');
-
-		//CakeLog::write('debug','Inside appLogin.....' . print_r($this->request,true));
 		$this->request->allowMethod('post','put');
-		$jsonData = $this->request->input('json_decode');
-		CakeLog::write('debug','Inside appLogin..jsondata...' . print_r($jsonData,true));
 
-		//CakeLog::write('debug','Printing Operator ' . print_r($this->request,true));
-		$this->request->data['User']['username'] = $jsonData->{'username'};
-		$this->request->data['User']['password'] = $jsonData->{'password'};
-		CakeLog::write('debug','Printing Operator(AFTER) ' . print_r($this->request,true));
-
-		if($this->Auth->login())
+		if(!empty($this->request->data))
 		{
-			$this->response->statusCode(200);
-			CakeLog::write('debug',"Logged in with User ID : " . CakeSession::read('Auth.User.id'));
-			$userId = CakeSession::read('Auth.User.id');
-			//$this->response->header(array("UserID"=> $userId));
-			$response['userid'] = $userId;
-			$this->set('data',$response);
-			$this->set('_serialize','data');
+			//CakeLog::write('debug','Printing Operator ' . print_r($this->request,true));
+			$this->request->data['User']['username'] = $this->request->data['username'];
+			$this->request->data['User']['password'] = $this->request->data['password'];
+			//CakeLog::write('debug','Printing Operator(AFTER) ' . print_r($this->request,true));
 
+			if($this->Auth->login())
+			{
+				$this->response->statusCode(200);
+				CakeLog::write('debug',"Logged in with User ID : " . CakeSession::read('Auth.User.id'));
+				$userId = CakeSession::read('Auth.User.id');
+				$this->response->header(array("UserID"=> $userId));
+
+			}
+			else{
+				CakeLog::write('debug','Inside ...else');
+				$this->response->statusCode(401);
+			}
+
+
+		}else{
+			$this->response->statusCode(400);
 		}
-		else{
-			CakeLog::write('debug','Inside ...else');
-			$this->response->statusCode(401);
-		}
 
+		$this->autoRender = false;	
 
-
-		//$this->autoRender = false;	
 	}
 
 }

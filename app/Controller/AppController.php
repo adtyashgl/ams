@@ -36,15 +36,15 @@ class AppController extends Controller {
 		'Auth' => array(
 			'authenticate' => array(
 				'Form' => array(
-					'fields' => array('username' => 'username', 'password' => 'password')
-				)
-			),
-			'authorize' => 'Controller'
+					'passwordHasher' => 'Blowfish'
+				),
+			)
 		)
 	);
 
-    public function beforeFilter() {
-        $this->Auth->allow('index', 'view');
-    }
+	public function beforeFilter() {
+	}
+
+	
     //...
 }
