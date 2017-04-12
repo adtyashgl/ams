@@ -52,7 +52,7 @@
         Router::connect('/entry/:employeeid/:timestamp', 
           array(
               'controller' => 'rest',
-	      'action' => 'entry',
+	      'action' => 'logEntry',
                ),
           array('pass' => array('employeeid','timestamp'))
        );
@@ -61,7 +61,7 @@
         Router::connect('/exit/:employeeid/:intimestamp/:outtimestamp', 
           array(
               'controller' => 'rest',
-	      'action' => 'exit',
+	      'action' => 'logExit',
                ),
           array('pass' => array('employeeid','intimestamp','outtimestamp'))
        );

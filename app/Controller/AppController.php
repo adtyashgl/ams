@@ -54,7 +54,7 @@ class AppController extends Controller {
 	 * ****************************************************************************/
 	protected function _saveImage($employeeId,$action,$timestamp,$srcFilePath,&$savedFilePath)
 	{	
-		$imagesFolder = Configure::read('employeeImagePath');
+		$imagesFolder = Configure::read('EmployeeImagePath');
 	        $actionPath = "";
 	        if($action == Configure::read('Action.Entry')){
 			$actionPath = "entry";

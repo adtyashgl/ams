@@ -40,8 +40,8 @@ class User extends AppModel {
 	                );
 
 		if(!empty($role)){
-			CakeLog::write('debug','Inside getRole...' . print_r($role,true));
-			return $role['User']['Employee']['role_id'];
+			CakeLog::write('debug','[getRole] : Role Array' . print_r($role,true));
+			return $role['Employee']['role_id'];
 		}else{
 			return Configure::read('Role.NA');
 		}

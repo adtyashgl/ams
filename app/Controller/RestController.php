@@ -7,7 +7,7 @@ class RestController extends AppController
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Auth->allow('getFranchises','getEmployees');
+		$this->Auth->allow('getFranchises','getEmployees','logEntry','logExit');
                 $this->RequestHandler->ext = 'json';
 	}
 
@@ -25,11 +25,11 @@ class RestController extends AppController
 		$this->loadModel('User');
                 $role = $this->User->getRole($userId);
 
-		
+	        CakeLog::write('debug','[getFranchises] Role is ' . $role);	
 		if($role == Configure::read('Role.Owner')){
 	           $this->loadModel('Franchise');		
 	           $locations = $this->Franchise->getAllFranchises();
-		}else if ($role == Configure::read('Role.Manager'){
+		}else if ($role == Configure::read('Role.Manager')){
 	           $this->loadModel('Franchise');		
 	           $locations = $this->Franchise->getFranchise($userId);
 		}else{
@@ -77,22 +77,23 @@ class RestController extends AppController
 	 * URI : POST https://entry
 	 *
 	 * ****************************************************************************/   
-	public function entry($employeeId,$timestamp)
+	public function logEntry($employeeId,$timestamp)
 	{
 		$response = array();
 		$response['status'] = Configure::read('RetValue.Success');
 
+		//CakeLog::write('debug','[logEntry] Printing request ' . print_r($this->request,true));
                 $employeeImagePath = $this->request->params['form']['image']['tmp_name'];
 
 		$savedPath = "";
-		if($this->_saveImage($employeeId,Configure::read('Action.Entry'),$timestamp,
-			$employeeImagePath,$savedPath){
+		if(!$this->_saveImage($employeeId,Configure::read('Action.Entry'),$timestamp,
+			$employeeImagePath,$savedPath)){
 				CakeLog::write('error','[entry] _saveImage Failed');	
 		}
 
 		$this->loadModel('Attendance');
 
-		if($this->Attendance->logEntry($employeeId,$timestamp,$savedPath){
+		if(!$this->Attendance->logEntry($employeeId,$timestamp,$savedPath)){
 			$response['status'] = Configure::read('RetValue.Failed');
 			$response['reason'] = "Could not save the record in DB";
 		}
@@ -105,22 +106,29 @@ class RestController extends AppController
 	 * URI : POST https://exit
 	 *
 	 * ****************************************************************************/   
-	public function exit($employeeId,$inTimeStamp,$outTimeStamp)
+	public function logExit($employeeId,$inTimeStamp,$outTimeStamp)
 	{
 		$response = array();
 		$response['status'] = Configure::read('RetValue.Success');
 
-                $employeeImagePath = $this->request->params['form']['image']['tmp_name'];
+                $employeeInImagePath  = $this->request->params['form']['inImage']['tmp_name'];
+                $employeeOutImagePath = $this->request->params['form']['outImage']['tmp_name'];
 
-		$savedPath = "";
-		if($this->_saveImage($employeeId,Configure::read('Action.Exit'),$outTimeStamp,
-			$employeeImagePath,$savedPath){
-				CakeLog::write('error','[exit] _saveImage Failed');	
+		$savedOutPath = "";
+		if(!$this->_saveImage($employeeId,Configure::read('Action.Exit'),$outTimeStamp,
+			$employeeOutImagePath,$savedOutPath)){
+				CakeLog::write('error','[logExit] _saveImage Exit Image Failed');	
+		}
+		
+		$savedInPath = "";
+		if(!$this->_saveImage($employeeId,Configure::read('Action.Entry'),$inTimeStamp,
+			$employeeInImagePath,$savedInPath)){
+				CakeLog::write('error','[exit] _saveImage Entry Image Failed');	
 		}
 
 		$this->loadModel('Attendance');
 
-		if($this->Attendance->logExit($employeeId,$inTimeStamp,$outTimeStamp,$savedPath){
+		if(!$this->Attendance->logExit($employeeId,$inTimeStamp,$outTimeStamp,$savedInPath,$savedOutPath)){
 			$response['status'] = Configure::read('RetValue.Failed');
 			$response['reason'] = "Could not save the record in DB";
 		}
