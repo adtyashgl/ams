@@ -15,7 +15,7 @@ class Franchise extends AppModel {
 
 	}
 
-	public function getFranchiseManagedBy($managerId){
+	public function getFranchise($managerId){
 		$franchises = $this->find('all',
 			                   array('conditions' => array('Franchise.manager_id' => $managerId))
 			                 );

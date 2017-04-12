@@ -30,6 +30,41 @@
  * ...and connect the rest of 'Pages' controller's URLs.
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+	Router::parseExtensions('json');
+	//Get Franchises
+        Router::connect('/franchises/:userid', 
+          array(
+              'controller' => 'rest',
+	      'action' => 'getFranchises',
+               ),
+          array('pass' => array('userid'))
+       );
+	//Get Employees 
+        Router::connect('/employees/:franchiseid', 
+          array(
+              'controller' => 'rest',
+	      'action' => 'getEmployees',
+               ),
+          array('pass' => array('franchiseid'))
+       );
+	
+	//Post Entry 
+        Router::connect('/entry/:employeeid/:timestamp', 
+          array(
+              'controller' => 'rest',
+	      'action' => 'entry',
+               ),
+          array('pass' => array('employeeid','timestamp'))
+       );
+	
+	//Post Exit
+        Router::connect('/exit/:employeeid/:intimestamp/:outtimestamp', 
+          array(
+              'controller' => 'rest',
+	      'action' => 'exit',
+               ),
+          array('pass' => array('employeeid','intimestamp','outtimestamp'))
+       );
 
 /**
  * Load all plugin routes. See the CakePlugin documentation on

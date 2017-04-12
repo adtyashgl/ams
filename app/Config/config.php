@@ -8,8 +8,15 @@
 
 	$config['RetValue'] = array('Success' => 0,
 		                     'Failure' =>1);
+	
 
 	$config['Role'] = array('NA' => 0,
 		                'Owner' => 1,
 		                'Manager' => 2);
+	
+	$config['Action'] = array('NA' => 0,
+		                  'Entry' => 1,
+				  'Exit' => 2);
+
+	$config['EmployeeImagePath'] = 'files/Employees/';
 ?>

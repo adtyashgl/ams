@@ -45,6 +45,43 @@ class AppController extends Controller {
 	public function beforeFilter() {
 	}
 
-	
-    //...
+	/******************************************************************************
+	 * Function   : _saveImage
+	 * Description: Saves the employee Image 
+	 *              The image is saved under a folder named $employeeId/entry folder for entry
+	 *              and $employeeId/exit folder for exit with timestamp
+	 *
+	 * ****************************************************************************/
+	protected function _saveImage($employeeId,$action,$timestamp,$srcFilePath,&$savedFilePath)
+	{	
+		$imagesFolder = Configure::read('employeeImagePath');
+	        $actionPath = "";
+	        if($action == Configure::read('Action.Entry')){
+			$actionPath = "entry";
+		}else if($action == Configure::read('Action.Exit')){
+			$actionPath = "exit";
+		}else{
+			CakeLog::write('error','[_saveImage]Invalid action supplied ' . $action);
+			return false;
+		}
+		 	
+		$folderUrl = WWW_ROOT.$imagesFolder.$employeeId.DS.$actionPath;
+
+		CakeLog::write('debug','[_saveImage]...FolderURL ' . $folderUrl);
+		if(!is_dir($folderUrl)){
+			mkdir($folderUrl,0777,true);
+		}
+
+		$fileName = $folderUrl.DS.$timestamp;
+		CakeLog::write('debug','[_saveImage]... FileName ' . $fileName);
+
+		if(copy($srcFilePath,$fileName)){
+			$savedFilePath = $fileName;
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	//...
 }
