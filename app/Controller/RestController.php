@@ -38,6 +38,7 @@ class RestController extends AppController
 
 		if(!empty($locations)){
 			$response['locations'] = $locations;
+			$response['count'] = count($locations);
 		}else{
 			$response['status'] = Configure::read('RetValue.Failed');
 			$response['reason'] = "No franchises configured. Please contact Administrator";
@@ -64,6 +65,7 @@ class RestController extends AppController
 
 		if(!empty($employees)){
 			$response['employees'] = $employees;
+			$response['count']     = count($employees);
 		}else{
 			$response['status'] = Configure::read('RetValue.Failed');
 			$response['reason'] = "No Employees configured for this Franchise. Please contact Administrator";

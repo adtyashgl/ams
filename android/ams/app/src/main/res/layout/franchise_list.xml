@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:orientation="horizontal"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/layer_card_background"
+    android:descendantFocusability="blocksDescendants"
+    >
+
+
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/icon"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginStart="2dp"
+        android:padding="10dp"
+        android:layout_marginTop="4dp"
+        fancy:fb_defaultColor="@color/white"
+        fancy:fb_iconPaddingLeft="0dp"
+        fancy:fb_iconPaddingRight="0dp"
+        fancy:fb_focusColor="#313131"
+        fancy:fb_iconResource="@drawable/placeholder"
+        fancy:fb_radius="64dp">
+    </mehdi.sakout.fancybuttons.FancyButton>
+
+
+    <TextView
+        android:id="@+id/item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dunkin Donouts - NJ"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:padding="2dp"
+        android:textColor="@color/simplypark_blue1"
+        android:layout_toEndOf="@+id/icon"
+        android:layout_toRightOf="@+id/icon"
+        />
+
+    <TextView
+        android:id="@+id/space_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Jersey , Opposite to 7/11"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/icon"
+        android:layout_toRightOf="@+id/icon"
+        android:layout_below="@+id/item"
+        android:layout_marginBottom="10dp"
+        />
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/space_address"
+        android:id="@+id/rl_synched_with_server_state"
+        android:background="@color/simplypark_blue3" />
+
+
+</RelativeLayout>
