@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import adiractech.ams.R;
 import adiractech.ams.adapters.CustomFranchiseListAdapter;
 import adiractech.ams.listelements.FranchiseElement;
+import adiractech.ams.main.MainActivity;
 import adiractech.ams.tables.Employee;
 import adiractech.ams.utils.Cache;
 import adiractech.ams.utils.Constants;
@@ -51,6 +52,7 @@ public class FranchiseSelectionActivity extends AppCompatActivity {
         franchiseDetailView = (ListView)findViewById(R.id.afs_franchise_details);
 
         context = getApplicationContext();
+        elements = new ArrayList<FranchiseElement>();
 
         franchiseDetailView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -268,10 +270,11 @@ public class FranchiseSelectionActivity extends AppCompatActivity {
             showProgress(false);
 
             if (success) {
-                Cache.setInCache(context,Constants.CACHE_PREFIX_IS_SETUP_COMPLETE,true,Constants.TYPE_BOOL);
-                //Intent intent = new Intent(FranchiseSelectionActivity.this, FranchiseSelectionActivity.class);
-                //startActivity(intent);
-                //finish();
+                Cache.setInCache(context,Constants.CACHE_PREFIX_IS_SETUP_COMPLETE,true,
+                                  Constants.TYPE_BOOL);
+                Intent intent = new Intent(FranchiseSelectionActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
 
             } else {
                 Helper.displayNotification(getApplicationContext(),failureReason,true);

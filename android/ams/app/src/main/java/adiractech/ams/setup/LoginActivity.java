@@ -317,7 +317,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         private final String password;
 
 
-        private OkHttpClient mClient;
+        private OkHttpClient client;
         //private final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
         private String mFailureReason;
         private final int UNAUTHORIZED = 401;
@@ -326,7 +326,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         UserLoginTask(String username, String password) {
             this.userName = username;
             this.password = password;
-
+            this.client = new OkHttpClient();
 
         }
 
@@ -336,14 +336,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             try {
                 Request loginRequest = buildLoginRequest();
 
-                Response loginResponse = mClient.newCall(loginRequest).execute();
+                Response loginResponse = client.newCall(loginRequest).execute();
 
                 if (loginResponse.isSuccessful()) {
-                    String userId = loginResponse.header("UserID");
+                    int userId = Integer.parseInt(loginResponse.header("UserID"));
                     Log.d("Response", "UserID is " + userId);
+
                     Context context = getApplicationContext();
                     Cache.setInCache(context,Constants.CACHE_PREFIX_USER_ID, userId,
-                                      Constants.TYPE_STRING);
+                                      Constants.TYPE_INT);
                     Cache.setInCache(context,Constants.CACHE_PREFIX_USERNAME,this.userName,
                                      Constants.TYPE_STRING);
                     Cache.setInCache(context,Constants.CACHE_PREFIX_PASSWORD,this.password,

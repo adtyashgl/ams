@@ -6,7 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+
 import adiractech.ams.R;
+import adiractech.ams.main.MainActivity;
 import adiractech.ams.utils.Cache;
 import adiractech.ams.utils.Constants;
 
@@ -23,13 +27,19 @@ public class SplashActivity extends AppCompatActivity {
 
         context = getApplicationContext();
 
-        if(!isLoggedIn()){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+        if(checkPlayServices()) {
+            if (!isLoggedIn()) {
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
 
-        }else if(!isSetupComplete()){
-            Intent intent = new Intent(this, FranchiseSelectionActivity.class);
-            startActivity(intent);
+            } else if (!isSetupComplete()) {
+                Intent intent = new Intent(this, FranchiseSelectionActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+            }
+            finish();
         }
     }
 
@@ -42,5 +52,27 @@ public class SplashActivity extends AppCompatActivity {
         return (Boolean) Cache.getFromCache(context,Constants.CACHE_PREFIX_IS_SETUP_COMPLETE,
                 Constants.TYPE_BOOL);
 
+    }
+
+    /**
+     * Check the device to make sure it has the Google Play Services APK. If
+     * it doesn't, display a dialog that allows users to download the APK from
+     * the Google Play Store or enable it in the device's system settings.
+     */
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode,
+                        Constants.PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                //Log.i("checkPlayServices", "This device is not supported.");
+                finish();
+            }
+            return false;
+        }
+        return true;
     }
 }

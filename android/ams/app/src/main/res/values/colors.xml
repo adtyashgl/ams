@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">@color/simplypark_blue</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">@color/simplypark_blue</color>
+    <color name="colorDunkinDonouts">#FC772A</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black_overlay">#66000000</color>
@@ -11,4 +12,5 @@
     <color name="simplypark_blue1">#436AE9</color>
     <color name="simplypark_blue">#33b5e5</color>
     <color name="simplypark_blue3">#006DF0</color>
+
 </resources>

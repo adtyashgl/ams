@@ -6,8 +6,8 @@ package adiractech.ams.utils;
 
 public class Constants {
     public static final String APP_VERSION = "0.0.1";
-    public static final String BASE_URL = "http://127.0.0.1/ams";
-    public static final String LOGIN_URL = BASE_URL + "/users/operatorLogin";
+    public static final String BASE_URL = "http://192.168.0.24/ams";
+    public static final String LOGIN_URL = BASE_URL + "/users/appLogin";
     public static final String GET_FRANCHISE_URL = BASE_URL + "/franchises";
     public static final String GET_EMPLOYEES_URL = BASE_URL + "/employees";
 
@@ -63,6 +63,12 @@ public class Constants {
     public static final String EMPLOYEE_MANAGER_ID = "manager_id";
     public static final String EMPLOYEE_ROLE_ID = "role_id";
     public static final String EMPLOYEE_FRANCHISE_ID = "franchise_id";
+
+    /***********************************************************************************************
+     *         MISC
+     **********************************************************************************************/
+    //play services related constants
+    public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
 
 

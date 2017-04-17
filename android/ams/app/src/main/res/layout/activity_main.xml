@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0099cc"
+    tools:context="adiractech.ams.main.MainActivity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+    <Button style="@style/AppTheme.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_entry"
+        android:id="@+id/ac_log_entry_id"
+        android:enabled="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:onClick="entryButtonHandler"
+
+
+        />
+
+    <Button style="@style/AppTheme.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/log_entry"
+        android:id="@+id/ac_log_exit_id"
+        android:enabled="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="entryButtonHandler"
+        android:layout_marginTop="80dp"
+        android:layout_below="@id/ac_log_entry_id"
+
+        />
+</RelativeLayout>

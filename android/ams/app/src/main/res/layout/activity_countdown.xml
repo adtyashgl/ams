@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:gravity="center_horizontal"
+android:orientation="vertical"
+android:paddingBottom="@dimen/activity_vertical_margin"
+android:paddingLeft="@dimen/activity_horizontal_margin"
+android:paddingRight="@dimen/activity_horizontal_margin"
+android:paddingTop="@dimen/activity_vertical_margin"
+tools:context="adiractech.ams.main.CountdownActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="336dp"
+        android:layout_height="100dp"
+        android:background="@drawable/layer_card_background"
+       >
+
+        <TextView
+            android:id="@+id/acd_employee_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="Welcome Bhawan"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/acd_entry_time_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/acd_employee_id"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:text="Entry Time" />
+    </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="35dp"
+            android:background="@drawable/layer_card_background"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/acd_photo_text_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+
+            android:lines="2"
+            android:text="Now postion yourself for a photo. \nPlease make sure that your face is fully visible" />
+        </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="35dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/acd_countdown"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/countdown"
+            android:gravity="center"
+            android:text="5"
+            android:textColor="#FFFFFF"
+            android:textSize="70sp"
+            android:layout_centerHorizontal="true"
+            android:visibility="visible"
+            />
+    </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>
+
+
+
+
