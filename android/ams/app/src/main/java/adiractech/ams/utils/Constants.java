@@ -1,5 +1,7 @@
 package adiractech.ams.utils;
 
+import android.os.Environment;
+
 import java.util.TimeZone;
 
 /**
@@ -39,6 +41,7 @@ public class Constants {
     public static final String CACHE_PREFIX_IS_SETUP_COMPLETE = CACHE_NAME + "isSetupComplete";
 
 
+
     /**********************************************************************************************
      *          RET VALUES
      *
@@ -47,6 +50,7 @@ public class Constants {
     public static final int RET_OK = 0;
     public static final int RET_NOK = 1;
     public static final int INVALID_TIME = 0;
+    public static final int EMPLOYEE_ID_INVALID = 0;
 
 
     /**********************************************************************************************
@@ -75,6 +79,8 @@ public class Constants {
 
     public static final String BUNDLE_EMPLOYEE_ID = "adiratech.ams.employeeid";
     public static final String BUNDLE_PARAM_ACTION = "adiractech.ams.action";
+    public static final String BUNDLE_PARAM_ERROR = "adiractech.ams.error";
+    public static final String BUNDLE_FILE_NAME = "adiractech.ams.filename";
 
 
     /***********************************************************************************************
@@ -94,6 +100,9 @@ public class Constants {
     public static final int ATTENDANCE_STATUS_IN = 1;
     public static final int ATTENDANCE_STATUS_OUT = 2;
     public static final int COUNTDOWN_TIMER_VALUE_IN_MS = 5000;
+
+    public static final String DEFAULT_SAVE_DIRECTORY =
+            Environment.getExternalStorageDirectory()+"/employees";
 
 
 

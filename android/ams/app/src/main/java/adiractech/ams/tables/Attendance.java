@@ -15,6 +15,7 @@ public class Attendance  extends SugarRecord {
     private long outTime;
     private String outTimeImagePath;
     private int status;
+    private boolean isSyncedWithServer;
 
 
 
@@ -71,5 +72,13 @@ public class Attendance  extends SugarRecord {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public void setIsSyncedWithServer(boolean isSyncedWithServer){
+        this.isSyncedWithServer = isSyncedWithServer;
+    }
+
+    public boolean getIsSyncedWithServer(){
+        return isSyncedWithServer;
     }
 }

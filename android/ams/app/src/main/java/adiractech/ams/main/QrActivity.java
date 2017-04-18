@@ -77,6 +77,7 @@ public class QrActivity extends AppCompatActivity {
         detector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
+
             }
 
             @Override
@@ -88,18 +89,18 @@ public class QrActivity extends AppCompatActivity {
                     task = new EmployeeFinderTask(secret);
                     task.execute((Void)null);
 
-                }else{
-                    Helper.displayNotification(context,"Attendance Card could not be scanned.\n" +
-                                                       "Please try again",true);
-                    Intent intent = new Intent(QrActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-
                 }
             }
         });
 
 
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        source.release();
 
     }
 
@@ -138,6 +139,7 @@ public class QrActivity extends AppCompatActivity {
                 Bundle b = new Bundle();
                 b.putInt(Constants.BUNDLE_EMPLOYEE_ID,employee.getEmployeeId());
                 b.putInt(Constants.BUNDLE_PARAM_ACTION,action);
+                intent.putExtras(b);
                 startActivity(intent);
                 finish();
 

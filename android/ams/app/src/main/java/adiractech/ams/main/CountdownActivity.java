@@ -29,6 +29,7 @@ public class CountdownActivity extends AppCompatActivity {
     private View progressView;
     private View contentView;
     private int action;
+    private long currentDateTime;
 
 
 
@@ -77,7 +78,10 @@ public class CountdownActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
+                countDownView.setText("0");
                 Intent intent = new Intent(CountdownActivity.this, FaceActivity.class);
+                intent.putExtra(Constants.BUNDLE_PARAM_ACTION,action);
+                intent.putExtra(Constants.BUNDLE_FILE_NAME,Long.toString(currentDateTime));
                 startActivity(intent);
                 finish();
 
@@ -128,14 +132,14 @@ public class CountdownActivity extends AppCompatActivity {
 
                 employeeNameView.setText(name);
                 DateTime now = DateTime.now(Constants.TIME_ZONE);
-                long currentDateTime = now.getMilliseconds(Constants.TIME_ZONE);
+                currentDateTime = now.getMilliseconds(Constants.TIME_ZONE);
                 String currentDateTimeStr = now.format("YYYY-MM-DD hh:mm");
 
                 Attendance record = employee.getAttendanceRecord();
 
                 switch(action){
                     case Constants.ATTENDANCE_ACTION_ENTER:{
-                        String entryString = R.string.entry_string + " " + currentDateTimeStr;
+                        String entryString = getString(R.string.entry_string) + " " + currentDateTimeStr;
                         entryTimeView.setText(entryString);
                         exitTimeView.setVisibility(View.GONE);
                         record.setInTime(currentDateTime);
@@ -157,11 +161,11 @@ public class CountdownActivity extends AppCompatActivity {
                         }
 
                         record.setOutTime(currentDateTime);
-                        String exitString = R.string.exit_string + " " + currentDateTime;
+                        String exitString = getString(R.string.exit_string) + " " + currentDateTime;
                         exitTimeView.setText(exitString);
                         String entryTimeStr = DateTime.forInstant(record.getInTime(),Constants.TIME_ZONE).
                                                 format("YYYY-MM-DD hh:mm");
-                        String entryString = R.string.entry_string + " " + entryTimeStr;
+                        String entryString = getString(R.string.entry_string) + " " + entryTimeStr;
                         entryTimeView.setText(entryString);
                         record.setStatus(Constants.ATTENDANCE_STATUS_OUT);
                         record.save();

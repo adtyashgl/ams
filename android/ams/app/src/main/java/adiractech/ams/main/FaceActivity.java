@@ -8,12 +8,14 @@ import com.google.android.gms.vision.face.Face;
 import com.google.android.gms.vision.face.FaceDetector;
 
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -25,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 import adiractech.ams.R;
+import adiractech.ams.utils.Constants;
 import adiractech.ams.utils.Helper;
 
 import static com.google.android.gms.vision.CameraSource.CAMERA_FACING_FRONT;
@@ -34,6 +37,9 @@ public class FaceActivity extends AppCompatActivity {
     private SurfaceView cameraView;
     private FaceDetector detector;
     private CameraSource source;
+    private int action;
+    private int employeeId;
+    private String fileName;
     private Context context;
     private CameraSource.ShutterCallback shutterCallback;
     private CameraSource.PictureCallback pictureCallback;
@@ -42,7 +48,13 @@ public class FaceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_face);
+        Intent intent = getIntent();
 
+        action = intent.getIntExtra(Constants.BUNDLE_PARAM_ACTION,
+                                         Constants.ATTENDANCE_ACTION_NA);
+        employeeId = intent.getIntExtra(Constants.BUNDLE_EMPLOYEE_ID,
+                                             Constants.EMPLOYEE_ID_INVALID);
+        fileName = intent.getStringExtra(Constants.BUNDLE_FILE_NAME);
         context = getApplicationContext();
 
         cameraView = (SurfaceView) findViewById(R.id.face_camera_view);
@@ -71,13 +83,16 @@ public class FaceActivity extends AppCompatActivity {
 
                     if(bitmap!=null){
 
-                        File file=new File(Environment.getExternalStorageDirectory()+"/dirr");
+                        String path = Constants.DEFAULT_SAVE_DIRECTORY + "/" +
+                                         Integer.toString(employeeId) + "/" +
+                                         Integer.toString(action);
+
+                        File file=new File(path);
                         if(!file.isDirectory()){
-                            file.mkdir();
+                            file.mkdirs();
                         }
 
-                        file=new File(Environment.getExternalStorageDirectory()+
-                                          "/dirr",System.currentTimeMillis()+".jpg");
+                        file=new File(path,fileName + ".jpg");
 
 
                         try
@@ -111,8 +126,8 @@ public class FaceActivity extends AppCompatActivity {
                 try {
                     source.start(cameraView.getHolder());
 
-                } catch (IOException ie) {
-
+                } catch (Exception e) {
+                   Log.d("AMS",e.toString());
                 }
             }
 
@@ -130,6 +145,7 @@ public class FaceActivity extends AppCompatActivity {
         detector.setProcessor(new Detector.Processor<Face>() {
             @Override
             public void release() {
+
             }
 
 
@@ -141,14 +157,21 @@ public class FaceActivity extends AppCompatActivity {
 
                 if(faces.size() != 0){
                    source.takePicture(shutterCallback,pictureCallback);
-                }else{
+                }/*else{
                     Helper.displayNotification(context,"Attendance Card could not be scanned.\n" +
                         "Please try again",true);
-                }
+                }*/
             }
         });
 
 
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        source.release();
 
     }
 }
