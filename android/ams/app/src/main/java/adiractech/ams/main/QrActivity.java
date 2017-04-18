@@ -20,6 +20,7 @@ import java.util.List;
 
 import adiractech.ams.R;
 import adiractech.ams.tables.Employee;
+import adiractech.ams.utils.Constants;
 import adiractech.ams.utils.Helper;
 import okhttp3.OkHttpClient;
 
@@ -107,6 +108,7 @@ public class QrActivity extends AppCompatActivity {
     public class EmployeeFinderTask extends AsyncTask<Void, Void, Boolean> {
 
         String secret;
+        Employee employee;
 
         EmployeeFinderTask(String secret) {
             this.secret = secret;
@@ -122,6 +124,7 @@ public class QrActivity extends AppCompatActivity {
             if (employees.isEmpty()) {
                 return false;
             }
+            employee = employees.get(0);
             return true;
         }
 
@@ -130,6 +133,8 @@ public class QrActivity extends AppCompatActivity {
         protected void onPostExecute(final Boolean success) {
             if (success) {
                 Intent intent = new Intent(QrActivity.this, CountdownActivity.class);
+                Bundle b = new Bundle();
+                b.putInt(Constants.BUNDLE_EMPLOYEE_ID,employee.getEmployeeId());
                 startActivity(intent);
                 finish();
 

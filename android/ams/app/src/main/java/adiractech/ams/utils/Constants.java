@@ -64,6 +64,14 @@ public class Constants {
     public static final String EMPLOYEE_ROLE_ID = "role_id";
     public static final String EMPLOYEE_FRANCHISE_ID = "franchise_id";
 
+
+    /***********************************************************************************************
+     *    BUNDLE
+     *
+     **********************************************************************************************/
+
+    public static final String BUNDLE_EMPLOYEE_ID = "adiratech.ams.employeeid";
+
     /***********************************************************************************************
      *         MISC
      **********************************************************************************************/

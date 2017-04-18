@@ -12,14 +12,28 @@ android:paddingRight="@dimen/activity_horizontal_margin"
 android:paddingTop="@dimen/activity_vertical_margin"
 tools:context="adiractech.ams.main.CountdownActivity">
 
+
+
     <LinearLayout
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:orientation="vertical">
 
+        <!-- Login progress -->
+        <ProgressBar
+            android:id="@+id/acd_progress_id"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:visibility="visible" />
+
 
     <RelativeLayout
+        android:id="@+id/acd_content_view_id"
         android:layout_width="336dp"
         android:layout_height="100dp"
         android:background="@drawable/layer_card_background"
@@ -31,7 +45,9 @@ tools:context="adiractech.ams.main.CountdownActivity">
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:gravity="center"
-            android:text="Welcome Bhawan"
+            android:text="Bhawan Malhotra"
+            android:textStyle="bold"
+            android:textSize="20dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
