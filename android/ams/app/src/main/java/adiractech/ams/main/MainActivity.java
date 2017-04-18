@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import adiractech.ams.R;
+import adiractech.ams.utils.Constants;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -39,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void entryButtonHandler(View view){
         Intent intent = new Intent(this,QrActivity.class);
+        intent.putExtra(Constants.BUNDLE_PARAM_ACTION, Constants.ATTENDANCE_ACTION_ENTER);
         startActivity(intent);
 
     }
 
     public void exitButtonHandler(View view){
         Intent intent = new Intent(this,QrActivity.class);
+        intent.putExtra(Constants.BUNDLE_PARAM_ACTION, Constants.ATTENDANCE_ACTION_EXIT);
         startActivity(intent);
 
     }

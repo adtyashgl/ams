@@ -1,5 +1,7 @@
 package adiractech.ams.utils;
 
+import java.util.TimeZone;
+
 /**
  * Created by root on 13/04/17.
  */
@@ -44,6 +46,7 @@ public class Constants {
 
     public static final int RET_OK = 0;
     public static final int RET_NOK = 1;
+    public static final int INVALID_TIME = 0;
 
 
     /**********************************************************************************************
@@ -71,12 +74,26 @@ public class Constants {
      **********************************************************************************************/
 
     public static final String BUNDLE_EMPLOYEE_ID = "adiratech.ams.employeeid";
+    public static final String BUNDLE_PARAM_ACTION = "adiractech.ams.action";
+
+
+    /***********************************************************************************************
+     *         ACTION
+     **********************************************************************************************/
+    public static final int ATTENDANCE_ACTION_NA = 0;
+    public static final int ATTENDANCE_ACTION_ENTER = 1;
+    public static final int ATTENDANCE_ACTION_EXIT = 2;
 
     /***********************************************************************************************
      *         MISC
      **********************************************************************************************/
     //play services related constants
     public static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    public static final TimeZone TIME_ZONE = TimeZone.getTimeZone("America/New_York");
+    public static final int ATTENDANCE_STATUS_NA = 0;
+    public static final int ATTENDANCE_STATUS_IN = 1;
+    public static final int ATTENDANCE_STATUS_OUT = 2;
+    public static final int COUNTDOWN_TIMER_VALUE_IN_MS = 5000;
 
 
 

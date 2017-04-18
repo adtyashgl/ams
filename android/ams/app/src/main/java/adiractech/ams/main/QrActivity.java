@@ -33,12 +33,14 @@ public class QrActivity extends AppCompatActivity {
     private CameraSource source;
     private Context context;
     private EmployeeFinderTask task;
+    private int action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr);
         context = getApplicationContext();
+        action = getIntent().getIntExtra(Constants.BUNDLE_PARAM_ACTION,Constants.ATTENDANCE_ACTION_NA);
 
         cameraView = (SurfaceView) findViewById(R.id.qr_camera_view);
 
@@ -135,6 +137,7 @@ public class QrActivity extends AppCompatActivity {
                 Intent intent = new Intent(QrActivity.this, CountdownActivity.class);
                 Bundle b = new Bundle();
                 b.putInt(Constants.BUNDLE_EMPLOYEE_ID,employee.getEmployeeId());
+                b.putInt(Constants.BUNDLE_PARAM_ACTION,action);
                 startActivity(intent);
                 finish();
 

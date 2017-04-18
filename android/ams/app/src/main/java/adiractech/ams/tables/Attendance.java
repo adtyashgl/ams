@@ -2,6 +2,8 @@ package adiractech.ams.tables;
 
 import com.orm.SugarRecord;
 
+import adiractech.ams.utils.Constants;
+
 /**
  * Created by root on 13/04/17.
  */
@@ -12,8 +14,14 @@ public class Attendance  extends SugarRecord {
     private String inTimeImagePath;
     private long outTime;
     private String outTimeImagePath;
+    private int status;
+
+
 
     public Attendance(){
+        status = Constants.ATTENDANCE_STATUS_NA;
+        inTime = 0;
+        outTime = 0;
 
     }
 
@@ -55,5 +63,13 @@ public class Attendance  extends SugarRecord {
 
     public void setOutTimeImagePath(String outTimeImagePath) {
         this.outTimeImagePath = outTimeImagePath;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 
     <application
         android:name="com.orm.SugarApp"
@@ -21,13 +23,16 @@
             android:value="ams.db" />
         <meta-data
             android:name="VERSION"
-            android:value="1" />
+            android:value="2" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="false" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="adiractech.ams.tables" />
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode,face" />
 
         <activity
             android:name=".setup.SplashActivity"
@@ -49,7 +54,7 @@
             android:label="@string/title_activity_main"
             android:theme="@style/FullscreenTheme" />
         <activity android:name=".main.QrActivity" />
-        <activity android:name=".main.CameraActivity" />
+        <activity android:name=".main.FaceActivity" />
         <activity android:name=".main.CountdownActivity"/>
     </application>
 

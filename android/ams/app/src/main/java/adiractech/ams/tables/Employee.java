@@ -1,6 +1,11 @@
 package adiractech.ams.tables;
 
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.orm.SugarRecord;
+
+import java.util.List;
+
+import adiractech.ams.utils.Constants;
 
 /**
  * Created by root on 13/04/17.
@@ -84,6 +89,18 @@ public class Employee  extends SugarRecord {
 
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+
+    public Attendance getAttendanceRecord(){
+        List<Attendance> records = Attendance.find(Attendance.class,"employee_id = ? and status = ?",
+                                                Integer.toString(employeeId),
+                                                Integer.toString(Constants.ATTENDANCE_ACTION_ENTER));
+
+        if(records.isEmpty()) {
+            return new Attendance();
+        }else{
+            return records.get(0);
+        }
     }
 
 

@@ -18,7 +18,9 @@
     <string name="log_entry">"Log Entry"</string>
     <string name="countdown">"5"</string>
 
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Welcome to Dunkin Donuts</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="entry_string">"Entry time recorded as : "</string>
+    <string name="exit_string">"Exit time recorded as : "</string>
 </resources>
