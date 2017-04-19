@@ -64,6 +64,11 @@ public class FaceActivity extends AppCompatActivity {
                 .setLandmarkType(FaceDetector.ALL_LANDMARKS)
                 .build();
 
+        if (!detector.isOperational()) {
+            Helper.displayNotification(context,"FaceDetection Library Missing.\n" +
+                    "Kindly Connect to Internet and reinstall the app",true);
+        }
+
         source = new CameraSource.Builder(this, detector)
                 .setFacing(CAMERA_FACING_FRONT)
                 .build();
