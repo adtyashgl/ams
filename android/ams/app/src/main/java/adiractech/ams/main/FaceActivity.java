@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,8 +26,14 @@ import com.google.android.gms.vision.CameraSource;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import adiractech.ams.R;
+import adiractech.ams.intents.ServerUpdationIntentService;
+import adiractech.ams.setup.FranchiseSelectionActivity;
+import adiractech.ams.setup.LoginActivity;
+import adiractech.ams.tables.Attendance;
+import adiractech.ams.utils.Cache;
 import adiractech.ams.utils.Constants;
 import adiractech.ams.utils.Helper;
 
@@ -39,10 +46,12 @@ public class FaceActivity extends AppCompatActivity {
     private CameraSource source;
     private int action;
     private int employeeId;
+    private long inTime;
     private String fileName;
     private Context context;
     private CameraSource.ShutterCallback shutterCallback;
     private CameraSource.PictureCallback pictureCallback;
+    private boolean faceDetected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +59,11 @@ public class FaceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_face);
         Intent intent = getIntent();
 
-        action = intent.getIntExtra(Constants.BUNDLE_PARAM_ACTION,
+        action = intent.getIntExtra(Constants.BUNDLE_ACTION,
                                          Constants.ATTENDANCE_ACTION_NA);
         employeeId = intent.getIntExtra(Constants.BUNDLE_EMPLOYEE_ID,
                                              Constants.EMPLOYEE_ID_INVALID);
+        inTime = intent.getLongExtra(Constants.BUNDLE_IN_TIME,Constants.INVALID_TIME);
         fileName = intent.getStringExtra(Constants.BUNDLE_FILE_NAME);
         context = getApplicationContext();
 
@@ -97,6 +107,8 @@ public class FaceActivity extends AppCompatActivity {
                             file.mkdirs();
                         }
 
+
+
                         file=new File(path,fileName + ".jpg");
 
 
@@ -107,6 +119,9 @@ public class FaceActivity extends AppCompatActivity {
 
                             fileOutputStream.flush();
                             fileOutputStream.close();
+
+                            new ServerUpdateTask(path+"/"+fileName +".jpg").execute((Void)null);
+
                         }
                         catch(IOException e){
                             e.printStackTrace();
@@ -160,8 +175,10 @@ public class FaceActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Face> detections) {
                 final SparseArray<Face> faces = detections.getDetectedItems();
 
-                if(faces.size() != 0){
+                if(faces.size() != 0 && !faceDetected){
                    source.takePicture(shutterCallback,pictureCallback);
+                    faceDetected = true;
+
                 }/*else{
                     Helper.displayNotification(context,"Attendance Card could not be scanned.\n" +
                         "Please try again",true);
@@ -176,7 +193,77 @@ public class FaceActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        source.release();
+        //source.release();
 
     }
-}
+
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class ServerUpdateTask extends AsyncTask<Void, Void, Boolean> {
+        private String failureReason;
+        private String imagePath;
+
+        ServerUpdateTask(String path){
+            failureReason = "";
+            imagePath = path;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            List<Attendance> records = Attendance.find(Attendance.class,
+                    "employee_id = ? and in_time = ?",Integer.toString(employeeId),
+                    Long.toString(inTime));
+            switch(action){
+                case Constants.ATTENDANCE_ACTION_ENTER: {
+
+                    if (records.isEmpty()) {
+                        failureReason = "Entry recorded not captured. Please contact Administrator";
+                        return false;
+                    }
+
+                    Attendance record = records.get(0);
+                    record.setInTimeImagePath(imagePath);
+                    record.save();
+                    ServerUpdationIntentService.startActionLogEntry(getApplicationContext(),
+                                                                    employeeId,inTime);
+                }
+                    break;
+                case Constants.ATTENDANCE_ACTION_EXIT: {
+                    Attendance record = records.get(0);
+                    record.setOutTimeImagePath(imagePath);
+                    record.save();
+                    ServerUpdationIntentService.startActionLogExit(getApplicationContext(),
+                            employeeId,inTime,record.getOutTime());
+                }
+                    break;
+            }
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            if (success) {
+                Intent intent = new Intent(FaceActivity.this, MainActivity.class);
+                intent.putExtra(Constants.BUNDLE_NOTIFICATION,"Thank you. Your record has been captured");
+                startActivity(intent);
+                finish();
+
+            } else {
+                Intent intent = new Intent(FaceActivity.this, MainActivity.class);
+                intent.putExtra(Constants.BUNDLE_NOTIFICATION,failureReason);
+                startActivity(intent);
+                finish();
+
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+
+        }
+
+    }
+
+    }

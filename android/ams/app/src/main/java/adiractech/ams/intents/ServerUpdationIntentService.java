@@ -171,6 +171,11 @@ public class ServerUpdationIntentService extends IntentService {
             sendResult(Constants.TRIGGER_ACTION_ENTRY, Constants.RET_NOK,
                     Constants.ERROR_NO_CONNECTION);
 
+        } catch (Exception e){
+            setAttendanceStateOutOfSync(employeeId,inTime);
+            sendResult(Constants.TRIGGER_ACTION_ENTRY, Constants.RET_NOK,
+                    Constants.ERROR_NO_CONNECTION);
+
         }
 
     }
@@ -231,6 +236,11 @@ public class ServerUpdationIntentService extends IntentService {
         } catch (java.io.IOException ioe) {
             setAttendanceStateOutOfSync(employeeId,inTime);
             sendResult(Constants.TRIGGER_ACTION_EXIT, Constants.RET_NOK,
+                    Constants.ERROR_NO_CONNECTION);
+
+        }catch (Exception e){
+            setAttendanceStateOutOfSync(employeeId,inTime);
+            sendResult(Constants.TRIGGER_ACTION_ENTRY, Constants.RET_NOK,
                     Constants.ERROR_NO_CONNECTION);
 
         }
@@ -324,8 +334,8 @@ public class ServerUpdationIntentService extends IntentService {
       private Request buildLogEntryRequest(int employeeId,long inTime){
 
 
-          List<Attendance> records = Attendance.find(Attendance.class, "employee_id = ? and" +
-                                "in_time = ?",Integer.toString(employeeId),Long.toString(inTime));
+          List<Attendance> records = Attendance.find(Attendance.class, "employee_id = ? and in_time = ?",
+                                              Integer.toString(employeeId),Long.toString(inTime));
 
           if(records.isEmpty()){
               return null;
@@ -352,8 +362,8 @@ public class ServerUpdationIntentService extends IntentService {
     private Request buildLogExitRequest(int employeeId,long inTime,long outTime){
 
 
-        List<Attendance> records = Attendance.find(Attendance.class, "employee_id = ? &&" +
-                        "status = ? && in_time = ?",Integer.toString(employeeId),
+        List<Attendance> records = Attendance.find(Attendance.class, "employee_id = ? && status = ? and in_time = ?",
+                         Integer.toString(employeeId),
                          Integer.toString(Constants.ATTENDANCE_STATUS_IN),
                          Long.toString(inTime));
 

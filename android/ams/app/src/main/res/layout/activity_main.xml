@@ -24,7 +24,7 @@
     <Button style="@style/AppTheme.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/log_entry"
+        android:text="@string/log_exit"
         android:id="@+id/ac_log_exit_id"
         android:enabled="true"
         android:layout_centerHorizontal="true"

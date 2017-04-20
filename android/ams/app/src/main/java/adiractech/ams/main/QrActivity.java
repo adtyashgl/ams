@@ -34,13 +34,14 @@ public class QrActivity extends AppCompatActivity {
     private Context context;
     private EmployeeFinderTask task;
     private int action;
+    private boolean isQrCodeDetected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr);
         context = getApplicationContext();
-        action = getIntent().getIntExtra(Constants.BUNDLE_PARAM_ACTION,Constants.ATTENDANCE_ACTION_NA);
+        action = getIntent().getIntExtra(Constants.BUNDLE_ACTION,Constants.ATTENDANCE_ACTION_NA);
 
         cameraView = (SurfaceView) findViewById(R.id.qr_camera_view);
 
@@ -84,10 +85,12 @@ public class QrActivity extends AppCompatActivity {
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
 
-                if(barcodes.size() != 0){
+                if(barcodes.size() != 0 && !isQrCodeDetected){
                     String secret = barcodes.valueAt(0).displayValue;
+                    isQrCodeDetected = true;
                     task = new EmployeeFinderTask(secret);
                     task.execute((Void)null);
+
 
                 }
             }
@@ -100,7 +103,7 @@ public class QrActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        source.release();
+        //source.release();
 
     }
 
@@ -138,7 +141,7 @@ public class QrActivity extends AppCompatActivity {
                 Intent intent = new Intent(QrActivity.this, CountdownActivity.class);
                 Bundle b = new Bundle();
                 b.putInt(Constants.BUNDLE_EMPLOYEE_ID,employee.getEmployeeId());
-                b.putInt(Constants.BUNDLE_PARAM_ACTION,action);
+                b.putInt(Constants.BUNDLE_ACTION,action);
                 intent.putExtras(b);
                 startActivity(intent);
                 finish();

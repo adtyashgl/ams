@@ -27,24 +27,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context = getApplicationContext();
 
-        String error = getIntent().getStringExtra(Constants.BUNDLE_PARAM_ERROR);
+        String notification = getIntent().getStringExtra(Constants.BUNDLE_NOTIFICATION);
 
-        if(error != null && !error.isEmpty()){
-            Helper.displayNotification(context,error,true);
+        if(notification != null && !notification.isEmpty()){
+            Helper.displayNotification(context,notification,true);
         }
 
     }
 
     public void entryButtonHandler(View view){
         Intent intent = new Intent(this,QrActivity.class);
-        intent.putExtra(Constants.BUNDLE_PARAM_ACTION, Constants.ATTENDANCE_ACTION_ENTER);
+        intent.putExtra(Constants.BUNDLE_ACTION, Constants.ATTENDANCE_ACTION_ENTER);
         startActivity(intent);
 
     }
 
     public void exitButtonHandler(View view){
         Intent intent = new Intent(this,QrActivity.class);
-        intent.putExtra(Constants.BUNDLE_PARAM_ACTION, Constants.ATTENDANCE_ACTION_EXIT);
+        intent.putExtra(Constants.BUNDLE_ACTION, Constants.ATTENDANCE_ACTION_EXIT);
         startActivity(intent);
 
     }

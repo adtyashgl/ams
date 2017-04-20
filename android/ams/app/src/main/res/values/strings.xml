@@ -16,6 +16,7 @@
         completions."
     </string>
     <string name="log_entry">"Log Entry"</string>
+    <string name="log_exit">"Log Exit"</string>
     <string name="countdown">"5"</string>
 
     <string name="title_activity_main">Welcome to Dunkin Donuts</string>

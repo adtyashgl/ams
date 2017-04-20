@@ -84,7 +84,7 @@ class RestController extends AppController
 		$response = array();
 		$response['status'] = Configure::read('RetValue.Success');
 
-		//CakeLog::write('debug','[logEntry] Printing request ' . print_r($this->request,true));
+		CakeLog::write('debug','[logEntry] Printing request ' . print_r($this->request,true));
                 $employeeImagePath = $this->request->params['form']['image']['tmp_name'];
 
 		$savedPath = "";
@@ -99,6 +99,9 @@ class RestController extends AppController
 			$response['status'] = Configure::read('RetValue.Failed');
 			$response['reason'] = "Could not save the record in DB";
 		}
+		
+		CakeLog::write('debug','[logEntry] Data response ' . print_r($data,true));
+
 
 		$this->set('data',$response);
 		$this->set('_serialize','data');
@@ -112,6 +115,7 @@ class RestController extends AppController
 	{
 		$response = array();
 		$response['status'] = Configure::read('RetValue.Success');
+		CakeLog::write('debug','[logExit] Printing request ' . print_r($this->request,true));
 
                 $employeeInImagePath  = $this->request->params['form']['inImage']['tmp_name'];
                 $employeeOutImagePath = $this->request->params['form']['outImage']['tmp_name'];

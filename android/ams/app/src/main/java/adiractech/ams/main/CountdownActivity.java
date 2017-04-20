@@ -30,6 +30,8 @@ public class CountdownActivity extends AppCompatActivity {
     private View contentView;
     private int action;
     private long currentDateTime;
+    private long inDateTime;
+
 
 
 
@@ -52,7 +54,7 @@ public class CountdownActivity extends AppCompatActivity {
         bundle = getIntent().getExtras();
 
         employeeId = bundle.getInt(Constants.BUNDLE_EMPLOYEE_ID);
-        action = bundle.getInt(Constants.BUNDLE_PARAM_ACTION);
+        action = bundle.getInt(Constants.BUNDLE_ACTION);
 
         employeeNameView = (TextView)findViewById(R.id.acd_employee_name_id);
         entryTimeView = (TextView)findViewById(R.id.acd_entry_time_id);
@@ -62,7 +64,7 @@ public class CountdownActivity extends AppCompatActivity {
 
         showProgress(true);
 
-        new EmployeeFinderTask(employeeId).execute((Void)null);
+        new EmployeeFinderTask().execute((Void)null);
     }
 
 
@@ -80,7 +82,9 @@ public class CountdownActivity extends AppCompatActivity {
             public void onFinish() {
                 countDownView.setText("0");
                 Intent intent = new Intent(CountdownActivity.this, FaceActivity.class);
-                intent.putExtra(Constants.BUNDLE_PARAM_ACTION,action);
+                intent.putExtra(Constants.BUNDLE_ACTION,action);
+                intent.putExtra(Constants.BUNDLE_EMPLOYEE_ID,employeeId);
+                intent.putExtra(Constants.BUNDLE_IN_TIME,inDateTime);
                 intent.putExtra(Constants.BUNDLE_FILE_NAME,Long.toString(currentDateTime));
                 startActivity(intent);
                 finish();
@@ -98,11 +102,9 @@ public class CountdownActivity extends AppCompatActivity {
      */
     public class EmployeeFinderTask extends AsyncTask<Void, Void, Boolean> {
 
-        int employeeId;
 
+        EmployeeFinderTask() {
 
-        EmployeeFinderTask(int employeeId) {
-            this.employeeId = employeeId;
 
         }
 
@@ -142,6 +144,8 @@ public class CountdownActivity extends AppCompatActivity {
                         String entryString = getString(R.string.entry_string) + " " + currentDateTimeStr;
                         entryTimeView.setText(entryString);
                         exitTimeView.setVisibility(View.GONE);
+                        inDateTime = currentDateTime;
+                        record.setEmployeeId(employeeId);
                         record.setInTime(currentDateTime);
                         record.setStatus(Constants.ATTENDANCE_STATUS_IN);
                         record.save();
@@ -153,7 +157,7 @@ public class CountdownActivity extends AppCompatActivity {
 
                         if(record.getInTime() == Constants.INVALID_TIME){
                             Helper.displayNotification(context, "Invalid Entry Time set\n" +
-                                    "Please conact the Store Manager", true);
+                                    "Please contact the Store Manager", true);
                             Intent intent = new Intent(CountdownActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
@@ -161,7 +165,7 @@ public class CountdownActivity extends AppCompatActivity {
                         }
 
                         record.setOutTime(currentDateTime);
-                        String exitString = getString(R.string.exit_string) + " " + currentDateTime;
+                        String exitString = getString(R.string.exit_string) + " " + currentDateTimeStr;
                         exitTimeView.setText(exitString);
                         String entryTimeStr = DateTime.forInstant(record.getInTime(),Constants.TIME_ZONE).
                                                 format("YYYY-MM-DD hh:mm");
@@ -169,6 +173,7 @@ public class CountdownActivity extends AppCompatActivity {
                         entryTimeView.setText(entryString);
                         record.setStatus(Constants.ATTENDANCE_STATUS_OUT);
                         record.save();
+                        inDateTime = record.getInTime();
 
                     }
                     break;

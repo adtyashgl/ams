@@ -85,10 +85,12 @@ public class Constants {
     public static final String BUNDLE_EMPLOYEE_ID = "adiractech.ams.employeeid";
     public static final String BUNDLE_IN_TIME = "adiractech.ams.intime";
     public static final String BUNDLE_OUT_TIME = "adiractech.ams.outtime";
-    public static final String BUNDLE_PARAM_ACTION = "adiractech.ams.action";
-    public static final String BUNDLE_PARAM_ERROR = "adiractech.ams.error";
+    public static final String BUNDLE_ACTION = "adiractech.ams.action";
+    public static final String BUNDLE_ERROR = "adiractech.ams.error";
     public static final String BUNDLE_FILE_NAME = "adiractech.ams.filename";
     public static final String BUNDLE_TIMER_ACTION ="adiractech.ams.TIMER_ACTION";
+    public static final String BUNDLE_RESULT = "adiractech.ams.RESULT";
+    public static final String BUNDLE_NOTIFICATION = "adiractech.ams.NOTIFICATION";
 
 
     /***********************************************************************************************
