@@ -14,6 +14,8 @@ public class Constants {
     public static final String LOGIN_URL = BASE_URL + "/users/appLogin";
     public static final String GET_FRANCHISE_URL = BASE_URL + "/franchises";
     public static final String GET_EMPLOYEES_URL = BASE_URL + "/employees";
+    public static final String POST_ENTRY_URL = BASE_URL + "/entry";
+    public static final String POST_EXIT_URL = BASE_URL + "/exit";
 
 
     /***********************************************************************************************
@@ -52,6 +54,9 @@ public class Constants {
     public static final int INVALID_TIME = 0;
     public static final int EMPLOYEE_ID_INVALID = 0;
 
+    public static final String ERROR_NO_CONNECTION = "Update Failed. No network Connectivity";
+    public static final String ERROR_INVALID_RESPONSE = "Update Failed.Invalid Response from Server";
+
 
     /**********************************************************************************************
      *             JSON Objects
@@ -77,10 +82,13 @@ public class Constants {
      *
      **********************************************************************************************/
 
-    public static final String BUNDLE_EMPLOYEE_ID = "adiratech.ams.employeeid";
+    public static final String BUNDLE_EMPLOYEE_ID = "adiractech.ams.employeeid";
+    public static final String BUNDLE_IN_TIME = "adiractech.ams.intime";
+    public static final String BUNDLE_OUT_TIME = "adiractech.ams.outtime";
     public static final String BUNDLE_PARAM_ACTION = "adiractech.ams.action";
     public static final String BUNDLE_PARAM_ERROR = "adiractech.ams.error";
     public static final String BUNDLE_FILE_NAME = "adiractech.ams.filename";
+    public static final String BUNDLE_TIMER_ACTION ="adiractech.ams.TIMER_ACTION";
 
 
     /***********************************************************************************************
@@ -89,6 +97,40 @@ public class Constants {
     public static final int ATTENDANCE_ACTION_NA = 0;
     public static final int ATTENDANCE_ACTION_ENTER = 1;
     public static final int ATTENDANCE_ACTION_EXIT = 2;
+
+
+
+    public static final String SERVER_ACTION_ENTER = "adiractech.ams.action.ENTER";
+    public static final String SERVER_ACTION_EXIT = "adiractech.ams.action.EXIT";
+    public static final String SERVER_ACTION_PUSH_TIMER_EXPIRY = "adiractech.ams.action.TIMER_EXPIRY";
+
+    // Defines a custom Intent action
+    public static final String SERVER_UPDATION_BROADCAST_RESULTS_ACTION =
+            "adiractech.ams.SERVER_UPDATION_BROADCAST_RESULTS";
+    public static final String SERVER_UPDATION_BROADCAST_RESULTS_STATUS =
+            "adiractech.ams.SERVER_UPDATION_BROADCAST_RESULTS_STATUS";
+
+    public static final String TRIGGER_ACTION_NAME = "adiractech.ams.trigger.ACTION";
+    public static final String TIMER_ACTION = "adiractech.ams.TIMER_EXPIRY";
+    public static final String ERROR = "adiractech.ams.ERROR";
+
+
+    public static final int TRIGGER_ACTION_NONE = 0;
+    public static final int TRIGGER_ACTION_ENTRY = 3;
+    public static final int TRIGGER_ACTION_EXIT = 4;
+
+
+
+    public static final int TIMER_ACTIONS_MAX = 2;
+    public static final long TIMER_INVALID_TIME = -1;
+    public static final int TIMER_STATUS_RUNNING = 1;
+    public static final int TIMER_STATUS_NOT_RUNNING = 0;
+
+
+
+
+    public static final int TIMER_INVALID_ACTION = -1;
+
 
     /***********************************************************************************************
      *         MISC
@@ -103,6 +145,9 @@ public class Constants {
 
     public static final String DEFAULT_SAVE_DIRECTORY =
             Environment.getExternalStorageDirectory()+"/employees";
+
+
+    public static final int PUSH_TIMER_EXPIRY = 120000;
 
 
 

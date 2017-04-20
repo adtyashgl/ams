@@ -23,6 +23,7 @@ public class Attendance  extends SugarRecord {
         status = Constants.ATTENDANCE_STATUS_NA;
         inTime = 0;
         outTime = 0;
+        isSyncedWithServer = false;
 
     }
 
@@ -81,4 +82,6 @@ public class Attendance  extends SugarRecord {
     public boolean getIsSyncedWithServer(){
         return isSyncedWithServer;
     }
+
+
 }
