@@ -100,7 +100,7 @@ class RestController extends AppController
 			$response['reason'] = "Could not save the record in DB";
 		}
 		
-		CakeLog::write('debug','[logEntry] Data response ' . print_r($data,true));
+		CakeLog::write('debug','[logEntry] Data response ' . print_r($response,true));
 
 
 		$this->set('data',$response);

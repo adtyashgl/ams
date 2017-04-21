@@ -135,12 +135,24 @@ public class CountdownActivity extends AppCompatActivity {
                 employeeNameView.setText(name);
                 DateTime now = DateTime.now(Constants.TIME_ZONE);
                 currentDateTime = now.getMilliseconds(Constants.TIME_ZONE);
+
                 String currentDateTimeStr = now.format("YYYY-MM-DD hh:mm");
 
                 Attendance record = employee.getAttendanceRecord();
 
                 switch(action){
                     case Constants.ATTENDANCE_ACTION_ENTER:{
+                        if(record.getStatus() == Constants.ATTENDANCE_ACTION_ENTER){
+                            String lastEntryStr = DateTime.forInstant(record.getInTime(),Constants.TIME_ZONE).format("YYYY-MM-DD hh:mm");
+                            String displayString = "An entry already exists for " + name +
+                                                   ". Last Entry at " + lastEntryStr +
+                                                   ". Please exit first or contact Store Manager";
+                            Helper.displayNotification(context, displayString, true);
+                            Intent intent = new Intent(CountdownActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                            return;
+                        }
                         String entryString = getString(R.string.entry_string) + " " + currentDateTimeStr;
                         entryTimeView.setText(entryString);
                         exitTimeView.setVisibility(View.GONE);
@@ -162,6 +174,16 @@ public class CountdownActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
 
+                        }
+
+                        if(record.getStatus() == Constants.ATTENDANCE_ACTION_EXIT){
+                            Helper.displayNotification(context,
+                              "No entry record exist. Please go back and record your entry first",
+                                    true);
+                            Intent intent = new Intent(CountdownActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                            return;
                         }
 
                         record.setOutTime(currentDateTime);

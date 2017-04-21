@@ -2,6 +2,7 @@ package adiractech.ams.setup;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -10,6 +11,8 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
 import adiractech.ams.R;
+import adiractech.ams.main.CountdownActivity;
+import adiractech.ams.main.FaceActivity;
 import adiractech.ams.main.MainActivity;
 import adiractech.ams.utils.Cache;
 import adiractech.ams.utils.Constants;
@@ -29,8 +32,9 @@ public class SplashActivity extends AppCompatActivity {
 
         if(checkPlayServices()) {
             if (!isLoggedIn()) {
-                Intent intent = new Intent(this, LoginActivity.class);
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
+
 
             } else if (!isSetupComplete()) {
                 Intent intent = new Intent(this, FranchiseSelectionActivity.class);
@@ -75,4 +79,22 @@ public class SplashActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    private void startCountDown(int value){
+        new CountDownTimer(value, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+            }
+
+            public void onFinish() {
+                Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(intent);
+
+            }
+        }.start();
+
+    }
+
+
 }

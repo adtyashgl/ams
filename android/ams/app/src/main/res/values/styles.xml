@@ -28,7 +28,7 @@
     </style>
 
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">@color/simplypark_blue</item>
+        <item name="colorButtonNormal">@color/dd_pink</item>
         <item name="android:textColor">@color/material_grey_50</item>
 
     </style>

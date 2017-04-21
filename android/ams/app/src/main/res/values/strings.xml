@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">AMS</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_countdown">Details</string>
+    <string name="title_activity_face">Say Cheese</string>
+    <string name="title_activity_qr">Please Scan your Card</string>
+    <string name="title_activity_franchise_selection">Select a location</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

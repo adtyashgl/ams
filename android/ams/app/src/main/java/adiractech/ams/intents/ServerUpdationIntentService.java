@@ -171,13 +171,7 @@ public class ServerUpdationIntentService extends IntentService {
             sendResult(Constants.TRIGGER_ACTION_ENTRY, Constants.RET_NOK,
                     Constants.ERROR_NO_CONNECTION);
 
-        } catch (Exception e){
-            setAttendanceStateOutOfSync(employeeId,inTime);
-            sendResult(Constants.TRIGGER_ACTION_ENTRY, Constants.RET_NOK,
-                    Constants.ERROR_NO_CONNECTION);
-
         }
-
     }
 
     /**
@@ -287,8 +281,8 @@ public class ServerUpdationIntentService extends IntentService {
      *********************************************************************************************/
 
     private void setAttendanceStateInSync(int employeeId,long entryTime){
-        List<Attendance> records = Attendance.find(Attendance.class, "employee_id = ? and" +
-                        "entryTime = ?",Integer.toString(employeeId), Long.toString(entryTime));
+        List<Attendance> records = Attendance.find(Attendance.class, "employee_id = ? and in_time = ?"
+                                                  ,Integer.toString(employeeId), Long.toString(entryTime));
 
        if(records.isEmpty()){
            return;
@@ -301,8 +295,8 @@ public class ServerUpdationIntentService extends IntentService {
     }
 
     private void setAttendanceStateOutOfSync(int employeeId,long entryTime){
-        List<Attendance> records = Attendance.find(Attendance.class, "employee_id = ? and" +
-                "entryTime = ?",Integer.toString(employeeId), Long.toString(entryTime));
+        List<Attendance> records = Attendance.find(Attendance.class, "employee_id = ? and in_time = ?",
+                Integer.toString(employeeId), Long.toString(entryTime));
 
         if(records.isEmpty()){
             return;

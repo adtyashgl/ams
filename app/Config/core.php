@@ -270,8 +270,9 @@
  * Uncomment this line and correct your server timezone to fix
  * any date & time related errors.
  */
-	date_default_timezone_set('UTC');
-
+	//date_default_timezone_set('UTC');
+	//date_default_timezone_set('Asia/Kolkata');
+	date_default_timezone_set('America/New_York');
 /**
  * `Config.timezone` is available in which you can set users' timezone string.
  * If a method of CakeTime class is called with $timezone parameter as null and `Config.timezone` is set,

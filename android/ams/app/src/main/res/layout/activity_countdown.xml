@@ -46,7 +46,7 @@ tools:context="adiractech.ams.main.CountdownActivity">
             android:gravity="center"
             android:text="Bhawan Malhotra"
             android:textStyle="bold"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 
@@ -89,7 +89,7 @@ tools:context="adiractech.ams.main.CountdownActivity">
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
 
-            android:lines="2"
+            android:lines="3"
             android:text="Now postion yourself for a photo. \nPlease make sure that your face is fully visible" />
         </RelativeLayout>
 
