@@ -10,8 +10,9 @@ import java.util.TimeZone;
 
 public class Constants {
     public static final String APP_VERSION = "0.0.1";
+    public static final String BASE_URL = "https://www.simplypark.in/ams";
     //public static final String BASE_URL = "http://192.168.0.24/ams";
-    public static final String BASE_URL = "http://172.20.10.6/ams";
+    //public static final String BASE_URL = "http://172.20.10.6/ams";
     public static final String LOGIN_URL = BASE_URL + "/users/appLogin";
     public static final String GET_FRANCHISE_URL = BASE_URL + "/franchises";
     public static final String GET_EMPLOYEES_URL = BASE_URL + "/employees";
