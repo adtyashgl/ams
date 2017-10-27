@@ -3,6 +3,7 @@ A simple Attendance management System (with Android Frontend and CakePhp backend
 This is a simple Attendance Management System and is comprised of
 
 a) An Android App
+
 The Android Mobile (with AMS app installed), therotically, will be installed in the customer premises
 
 The APP first scans a QR code based Employee ID card and then clicks a Photo (from the Selfie Cam) and uploads it to the Server.
